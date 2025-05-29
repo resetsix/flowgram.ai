@@ -30,3 +30,14 @@ jobs:
 
       - name: Run E2E tests
         run: node common/scripts/install-run-rush.js e2e:test --verbose
+        
+      # 添加以下步骤来保存测试结果和报告
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: |
+            **/playwright-report/
+            **/test-results/
+          retention-days: 30
