@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import { get, groupBy, isEmpty, mapKeys } from 'lodash';
 import { Disposable, DisposableCollection, Emitter } from '@flowgram.ai/utils';
 import {
@@ -26,12 +31,7 @@ import {
 import { FlowNodeEntity } from '@flowgram.ai/document';
 import { PlaygroundContext, PluginContext } from '@flowgram.ai/core';
 
-import {
-  convertGlobPath,
-  findMatchedInMap,
-  formFeedbacksToNodeCoreFormFeedbacks,
-  mergeEffectMap,
-} from './utils';
+import { convertGlobPath, findMatchedInMap, formFeedbacksToNodeCoreFormFeedbacks } from './utils';
 import {
   DataEvent,
   Effect,
@@ -133,8 +133,10 @@ export class FormModelV2 extends FormModel implements Disposable {
     return this._formControl;
   }
 
-  get formMeta() {
-    return this.node.getNodeRegistry().formMeta;
+  protected _formMeta: FormMeta;
+
+  get formMeta(): FormMeta {
+    return this._formMeta || (this.node.getNodeRegistry().formMeta as FormMeta);
   }
 
   get values() {
@@ -195,9 +197,6 @@ export class FormModelV2 extends FormModel implements Disposable {
     this.plugins = plugins;
     plugins.forEach((plugin) => {
       plugin.init(this);
-      if (plugin.config?.effect) {
-        mergeEffectMap(this.effectMap, plugin.config.effect);
-      }
     });
   }
 
@@ -208,6 +207,14 @@ export class FormModelV2 extends FormModel implements Disposable {
       this._valid = null;
       formData.fireChange();
     });
+
+    (formMeta.plugins || [])?.forEach((_plugin) => {
+      if (_plugin.setupFormMeta) {
+        formMeta = _plugin.setupFormMeta(formMeta, this.nodeContext);
+      }
+    });
+
+    this._formMeta = formMeta;
 
     const { validateTrigger, validate, effect } = formMeta;
     if (effect) {

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import React, { type FC } from 'react';
 
 import { useCurrentEntity } from '@flowgram.ai/free-layout-core';
@@ -24,7 +29,9 @@ export const SubCanvasBackground: FC = () => {
   const dotColor = backgroundConfig.dotColor ?? '#eceeef';
   const dotOpacity = backgroundConfig.dotOpacity ?? 0.5;
   const backgroundColor = backgroundConfig.backgroundColor ?? '#f2f3f5';
-  const dotFillColor = backgroundConfig.dotFillColor ?? dotColor;
+  // 只有当 dotFillColor 被明确设置且与 dotColor 不同时才添加 fill 属性
+  const dotFillColor =
+    backgroundConfig.dotFillColor === dotColor ? '' : backgroundConfig.dotFillColor;
 
   // 生成唯一的 pattern ID
   const patternId = `sub-canvas-dot-pattern-${node.id}`;

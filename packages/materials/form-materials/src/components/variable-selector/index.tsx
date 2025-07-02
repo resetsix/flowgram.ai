@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import React, { useMemo } from 'react';
 
 import { TriggerRenderProps } from '@douyinfe/semi-ui/lib/es/treeSelect';
@@ -6,7 +11,7 @@ import { IconChevronDownStroked, IconIssueStroked } from '@douyinfe/semi-icons';
 
 import { IJsonSchema } from '../../typings/json-schema';
 import { useVariableTree } from './use-variable-tree';
-import { UIRootTitle, UITag, UITreeSelect } from './styles';
+import { UIRootTitle, UITag, UITreeSelect, UIVarName } from './styles';
 
 interface PropTypes {
   value?: string[];
@@ -24,6 +29,8 @@ interface PropTypes {
 }
 
 export type VariableSelectorProps = PropTypes;
+
+export { useVariableTree };
 
 export const VariableSelector = ({
   value,
@@ -95,7 +102,7 @@ export const VariableSelector = ({
               <UIRootTitle>
                 {_option.rootMeta?.title ? `${_option.rootMeta?.title} -` : null}
               </UIRootTitle>
-              {_option.label}
+              <UIVarName>{_option.label}</UIVarName>
             </UITag>
           );
         }}

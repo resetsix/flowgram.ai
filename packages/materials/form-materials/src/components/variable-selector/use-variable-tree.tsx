@@ -1,6 +1,11 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import React, { useCallback } from 'react';
 
-import { useScopeAvailable, ASTMatch, BaseVariableField } from '@flowgram.ai/editor';
+import { ASTMatch, BaseVariableField, useAvailableVariables } from '@flowgram.ai/editor';
 import { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
 import { Icon } from '@douyinfe/semi-ui';
 
@@ -16,7 +21,7 @@ export function useVariableTree(params: {
 }): TreeNodeData[] {
   const { includeSchema, excludeSchema } = params;
 
-  const available = useScopeAvailable();
+  const variables = useAvailableVariables();
 
   const getVariableTypeIcon = useCallback((variable: VariableField) => {
     if (variable.meta?.icon) {
@@ -92,7 +97,7 @@ export function useVariableTree(params: {
     };
   };
 
-  return [...available.variables.slice(0).reverse()]
+  return [...variables.slice(0).reverse()]
     .map((_variable) => renderVariable(_variable as VariableField))
     .filter(Boolean) as TreeNodeData[];
 }

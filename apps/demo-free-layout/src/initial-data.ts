@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FlowDocumentJSON } from './typings';
 
 export const initialData: FlowDocumentJSON = {
@@ -130,6 +135,20 @@ export const initialData: FlowDocumentJSON = {
       },
       data: {
         title: 'Loop_1',
+        batchFor: {
+          type: 'ref',
+          content: ['start_0', 'array_obj'],
+        },
+        batchOutputs: {
+          results: {
+            type: 'ref',
+            content: ['llm_6aSyo', 'result'],
+          },
+          indexList: {
+            type: 'ref',
+            content: ['loop_sGybT_locals', 'index'],
+          },
+        },
       },
       blocks: [
         {

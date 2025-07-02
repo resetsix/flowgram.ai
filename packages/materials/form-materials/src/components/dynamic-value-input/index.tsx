@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import React, { useMemo } from 'react';
 
 import { IconButton } from '@douyinfe/semi-ui';
@@ -19,6 +24,7 @@ interface PropsType {
   schema?: IJsonSchema;
   constantProps?: {
     strategies?: Strategy[];
+    schema?: IJsonSchema; // set schema of constant input only
     [key: string]: any;
   };
 }
@@ -44,6 +50,7 @@ export function DynamicValueInput({
       // Display Variable Or Delete
       return (
         <VariableSelector
+          style={{ width: '100%' }}
           value={value?.content}
           onChange={(_v) => onChange(_v ? { type: 'ref', content: _v } : undefined)}
           includeSchema={includeSchema}

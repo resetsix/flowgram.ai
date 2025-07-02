@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import styled from 'styled-components';
 
 export const UIContainer = styled.div`
@@ -8,6 +13,8 @@ export const UIContainer = styled.div`
 
 export const UIMain = styled.div`
   flex-grow: 1;
+  overflow: hidden;
+  min-width: 0;
 
   & .semi-tree-select,
   & .semi-input-number,

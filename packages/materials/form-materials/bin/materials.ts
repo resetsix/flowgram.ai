@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
@@ -17,7 +22,7 @@ export interface Material {
   [key: string]: any; // For other properties from config.json
 }
 
-const _types: string[] = ['components', 'effects', 'utils', 'typings'];
+const _types: string[] = ['components', 'effects', 'utils', 'typings', 'form-plugins'];
 
 export function listAllMaterials(): Material[] {
   const _materials: Material[] = [];
