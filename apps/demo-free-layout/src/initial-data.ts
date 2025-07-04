@@ -12,7 +12,7 @@ export const initialData: FlowDocumentJSON = {
       type: 'start',
       meta: {
         position: {
-          x: 180,
+          x: 186.39660158249967,
           y: 381.75,
         },
       },
@@ -91,7 +91,7 @@ export const initialData: FlowDocumentJSON = {
       type: 'end',
       meta: {
         position: {
-          x: 2202.9953917050693,
+          x: 2489.2950705293442,
           y: 381.75,
         },
       },
@@ -125,12 +125,194 @@ export const initialData: FlowDocumentJSON = {
       },
     },
     {
-      id: 'loop_sGybT',
+      id: 'group_5ci0o',
+      type: 'group',
+      meta: {
+        position: {
+          x: 163.32056949283722,
+          y: -76.50012170998413,
+        },
+      },
+      data: {},
+      blocks: [
+        {
+          id: 'llm_8--A3',
+          type: 'llm',
+          meta: {
+            position: {
+              x: 1177.8341013824886,
+              y: 9.249999999999977,
+            },
+          },
+          data: {
+            title: 'LLM_1',
+            inputsValues: {
+              modelName: {
+                type: 'constant',
+                content: 'gpt-3.5-turbo',
+              },
+              apiKey: {
+                type: 'constant',
+                content: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+              },
+              apiHost: {
+                type: 'constant',
+                content: 'https://mock-ai-url/api/v3',
+              },
+              temperature: {
+                type: 'constant',
+                content: 0.5,
+              },
+              systemPrompt: {
+                type: 'constant',
+                content: '# Role\nYou are an AI assistant.\n',
+              },
+              prompt: {
+                type: 'constant',
+                content: '# User Input\nquery:{{start_0.query}}\nenable:{{start_0.enable}}',
+              },
+            },
+            inputs: {
+              type: 'object',
+              required: ['modelName', 'apiKey', 'apiHost', 'temperature', 'prompt'],
+              properties: {
+                modelName: {
+                  type: 'string',
+                },
+                apiKey: {
+                  type: 'string',
+                },
+                apiHost: {
+                  type: 'string',
+                },
+                temperature: {
+                  type: 'number',
+                },
+                systemPrompt: {
+                  type: 'string',
+                  extra: {
+                    formComponent: 'prompt-editor',
+                  },
+                },
+                prompt: {
+                  type: 'string',
+                  extra: {
+                    formComponent: 'prompt-editor',
+                  },
+                },
+              },
+            },
+            outputs: {
+              type: 'object',
+              properties: {
+                result: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+        {
+          id: 'llm_vTyMa',
+          type: 'llm',
+          meta: {
+            position: {
+              x: 1621.3675909579388,
+              y: 19.24999999999997,
+            },
+          },
+          data: {
+            title: 'LLM_2',
+            inputsValues: {
+              modelName: {
+                type: 'constant',
+                content: 'gpt-3.5-turbo',
+              },
+              apiKey: {
+                type: 'constant',
+                content: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+              },
+              apiHost: {
+                type: 'constant',
+                content: 'https://mock-ai-url/api/v3',
+              },
+              temperature: {
+                type: 'constant',
+                content: 0.5,
+              },
+              systemPrompt: {
+                type: 'constant',
+                content: '# Role\nYou are an AI assistant.\n',
+              },
+              prompt: {
+                type: 'constant',
+                content: '# LLM Input\nresult:{{llm_8--A3.result}}',
+              },
+            },
+            inputs: {
+              type: 'object',
+              required: ['modelName', 'apiKey', 'apiHost', 'temperature', 'prompt'],
+              properties: {
+                modelName: {
+                  type: 'string',
+                },
+                apiKey: {
+                  type: 'string',
+                },
+                apiHost: {
+                  type: 'string',
+                },
+                temperature: {
+                  type: 'number',
+                },
+                systemPrompt: {
+                  type: 'string',
+                  extra: {
+                    formComponent: 'prompt-editor',
+                  },
+                },
+                prompt: {
+                  type: 'string',
+                  extra: {
+                    formComponent: 'prompt-editor',
+                  },
+                },
+              },
+            },
+            outputs: {
+              type: 'object',
+              properties: {
+                result: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+      ],
+      edges: [
+        {
+          sourceNodeID: 'condition_0',
+          targetNodeID: 'llm_8--A3',
+          sourcePortID: 'if_0',
+        },
+        {
+          sourceNodeID: 'llm_8--A3',
+          targetNodeID: 'llm_vTyMa',
+        },
+        {
+          sourceNodeID: 'llm_vTyMa',
+          targetNodeID: 'end_0',
+        },
+      ],
+    },
+    {
+      id: 'loop_ANNyh',
       type: 'loop',
       meta: {
         position: {
-          x: 1373.5714285714287,
-          y: 394.9758064516129,
+          x: 1451.8161064396056,
+          y: 384.9037102954011,
         },
       },
       data: {
@@ -139,16 +321,6 @@ export const initialData: FlowDocumentJSON = {
           type: 'ref',
           content: ['start_0', 'array_obj'],
         },
-        batchOutputs: {
-          results: {
-            type: 'ref',
-            content: ['llm_6aSyo', 'result'],
-          },
-          indexList: {
-            type: 'ref',
-            content: ['loop_sGybT_locals', 'index'],
-          },
-        },
       },
       blocks: [
         {
@@ -156,8 +328,8 @@ export const initialData: FlowDocumentJSON = {
           type: 'llm',
           meta: {
             position: {
-              x: -196.8663594470046,
-              y: 142.0046082949309,
+              x: -110.10677817900246,
+              y: 182.98973079191808,
             },
           },
           data: {
@@ -233,8 +405,8 @@ export const initialData: FlowDocumentJSON = {
           type: 'llm',
           meta: {
             position: {
-              x: 253.1797235023041,
-              y: 142.00460829493088,
+              x: 332.31739662589257,
+              y: 182.98973079191802,
             },
           },
           data: {
@@ -305,193 +477,41 @@ export const initialData: FlowDocumentJSON = {
             },
           },
         },
+        {
+          id: 'block_start_loop_ANNyh',
+          type: 'block-start',
+          meta: {
+            position: {
+              x: -404.5309529838977,
+              y: 346.08973079191816,
+            },
+          },
+          data: {},
+        },
+        {
+          id: 'block_end_loop_ANNyh',
+          type: 'block-end',
+          meta: {
+            position: {
+              x: 626.7415714307878,
+              y: 346.08973079191793,
+            },
+          },
+          data: {},
+        },
       ],
       edges: [
+        {
+          sourceNodeID: 'block_start_loop_ANNyh',
+          targetNodeID: 'llm_6aSyo',
+        },
         {
           sourceNodeID: 'llm_6aSyo',
           targetNodeID: 'llm_ZqKlP',
         },
-      ],
-    },
-    {
-      id: 'group_5ci0o',
-      type: 'group',
-      meta: {
-        position: {
-          x: 0,
-          y: 0,
-        },
-      },
-      data: {},
-      blocks: [
         {
-          id: 'llm_8--A3',
-          type: 'llm',
-          meta: {
-            position: {
-              x: 1177.8341013824886,
-              y: 19.25,
-            },
-          },
-          data: {
-            title: 'LLM_1',
-            inputsValues: {
-              modelName: {
-                type: 'constant',
-                content: 'gpt-3.5-turbo',
-              },
-              apiKey: {
-                type: 'constant',
-                content: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-              },
-              apiHost: {
-                type: 'constant',
-                content: 'https://mock-ai-url/api/v3',
-              },
-              temperature: {
-                type: 'constant',
-                content: 0.5,
-              },
-              systemPrompt: {
-                type: 'constant',
-                content: '# Role\nYou are an AI assistant.\n',
-              },
-              prompt: {
-                type: 'constant',
-                content: '',
-              },
-            },
-            inputs: {
-              type: 'object',
-              required: ['modelName', 'apiKey', 'apiHost', 'temperature', 'prompt'],
-              properties: {
-                modelName: {
-                  type: 'string',
-                },
-                apiKey: {
-                  type: 'string',
-                },
-                apiHost: {
-                  type: 'string',
-                },
-                temperature: {
-                  type: 'number',
-                },
-                systemPrompt: {
-                  type: 'string',
-                  extra: {
-                    formComponent: 'prompt-editor',
-                  },
-                },
-                prompt: {
-                  type: 'string',
-                  extra: {
-                    formComponent: 'prompt-editor',
-                  },
-                },
-              },
-            },
-            outputs: {
-              type: 'object',
-              properties: {
-                result: {
-                  type: 'string',
-                },
-              },
-            },
-          },
-        },
-        {
-          id: 'llm_vTyMa',
-          type: 'llm',
-          meta: {
-            position: {
-              x: 1625.6221198156682,
-              y: 19.25,
-            },
-          },
-          data: {
-            title: 'LLM_2',
-            inputsValues: {
-              modelName: {
-                type: 'constant',
-                content: 'gpt-3.5-turbo',
-              },
-              apiKey: {
-                type: 'constant',
-                content: 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-              },
-              apiHost: {
-                type: 'constant',
-                content: 'https://mock-ai-url/api/v3',
-              },
-              temperature: {
-                type: 'constant',
-                content: 0.5,
-              },
-              systemPrompt: {
-                type: 'constant',
-                content: '# Role\nYou are an AI assistant.\n',
-              },
-              prompt: {
-                type: 'constant',
-                content: '',
-              },
-            },
-            inputs: {
-              type: 'object',
-              required: ['modelName', 'apiKey', 'apiHost', 'temperature', 'prompt'],
-              properties: {
-                modelName: {
-                  type: 'string',
-                },
-                apiKey: {
-                  type: 'string',
-                },
-                apiHost: {
-                  type: 'string',
-                },
-                temperature: {
-                  type: 'number',
-                },
-                systemPrompt: {
-                  type: 'string',
-                  extra: {
-                    formComponent: 'prompt-editor',
-                  },
-                },
-                prompt: {
-                  type: 'string',
-                  extra: {
-                    formComponent: 'prompt-editor',
-                  },
-                },
-              },
-            },
-            outputs: {
-              type: 'object',
-              properties: {
-                result: {
-                  type: 'string',
-                },
-              },
-            },
-          },
-        },
-      ],
-      edges: [
-        {
-          sourceNodeID: 'condition_0',
-          targetNodeID: 'llm_8--A3',
-          sourcePortID: 'if_0',
-        },
-        {
-          sourceNodeID: 'llm_8--A3',
-          targetNodeID: 'llm_vTyMa',
-        },
-        {
-          sourceNodeID: 'llm_vTyMa',
-          targetNodeID: 'end_0',
+          sourceNodeID: 'llm_ZqKlP',
+          targetNodeID: 'block_end_loop_ANNyh',
         },
       ],
     },
@@ -508,7 +528,7 @@ export const initialData: FlowDocumentJSON = {
     },
     {
       sourceNodeID: 'condition_0',
-      targetNodeID: 'loop_sGybT',
+      targetNodeID: 'loop_ANNyh',
       sourcePortID: 'if_f0rOAt',
     },
     {
@@ -516,7 +536,7 @@ export const initialData: FlowDocumentJSON = {
       targetNodeID: 'end_0',
     },
     {
-      sourceNodeID: 'loop_sGybT',
+      sourceNodeID: 'loop_ANNyh',
       targetNodeID: 'end_0',
     },
   ],
