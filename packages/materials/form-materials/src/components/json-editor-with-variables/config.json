@@ -1,8 +1,8 @@
 {
-  "name": "prompt-editor-with-variables",
+  "name": "json-editor-with-variables",
   "depMaterials": [
     "variable-selector",
-    "prompt-editor"
+    "code-editor"
   ],
   "depPackages": [
     "@coze-editor/editor@0.1.0-alpha.8d7a30",
