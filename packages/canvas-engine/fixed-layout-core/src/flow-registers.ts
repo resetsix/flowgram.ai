@@ -40,6 +40,8 @@ import {
   MultiInputsRegistry,
   InputRegistry,
   OuputRegistry,
+  SlotRegistry,
+  SlotBlockRegistry,
 } from './activities';
 
 @injectable()
@@ -72,7 +74,9 @@ export class FlowRegisters
       MultiOuputsRegistry,
       MultiInputsRegistry,
       InputRegistry,
-      OuputRegistry
+      OuputRegistry,
+      SlotRegistry,
+      SlotBlockRegistry
     );
     /**
      * 注册节点数据 (ECS - Component)

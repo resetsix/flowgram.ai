@@ -3,3 +3,5 @@
  * SPDX-License-Identifier: MIT
  */
 
+export { SlotRegistry } from './slot';
+export { SlotBlockRegistry } from './extends';
