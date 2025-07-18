@@ -8,9 +8,10 @@ import { FC, useContext, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import { WorkflowInputs, WorkflowOutputs } from '@flowgram.ai/runtime-interface';
 import { useService } from '@flowgram.ai/free-layout-editor';
-import { Button, SideSheet } from '@douyinfe/semi-ui';
+import { Button, SideSheet, Switch } from '@douyinfe/semi-ui';
 import { IconClose, IconPlay, IconSpin } from '@douyinfe/semi-icons';
 
+import { TestRunJsonInput } from '../testrun-json-input';
 import { TestRunForm } from '../testrun-form';
 import { NodeStatusGroup } from '../node-status-bar/group';
 import { WorkflowRuntimeService } from '../../../plugins/runtime-plugin/runtime-service';
@@ -39,6 +40,17 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = ({ visible, onCancel 
     | undefined
   >();
 
+  // en - Use localStorage to persist the JSON mode state
+  const [inputJSONMode, _setInputJSONMode] = useState(() => {
+    const savedMode = localStorage.getItem('testrun-input-json-mode');
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
+
+  const setInputJSONMode = (checked: boolean) => {
+    _setInputJSONMode(checked);
+    localStorage.setItem('testrun-input-json-mode', JSON.stringify(checked));
+  };
+
   const onTestRun = async () => {
     if (isRunning) {
       await runtimeService.taskCancel();
@@ -46,11 +58,9 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = ({ visible, onCancel 
     }
     setResult(undefined);
     setErrors(undefined);
-    setRunning(true);
-    try {
-      await runtimeService.taskRun(values);
-    } catch (e: any) {
-      setErrors([e.message]);
+    const taskID = await runtimeService.taskRun(values);
+    if (taskID) {
+      setRunning(true);
     }
   };
 
@@ -92,8 +102,20 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = ({ visible, onCancel 
 
   const renderForm = (
     <div className={styles['testrun-panel-form']}>
-      <div className={styles.title}>Input Form</div>
-      <TestRunForm values={values} setValues={setValues} />
+      <div className={styles['testrun-panel-input']}>
+        <div className={styles.title}>Input Form</div>
+        <div>JSON Mode</div>
+        <Switch
+          checked={inputJSONMode}
+          onChange={(checked: boolean) => setInputJSONMode(checked)}
+          size="small"
+        />
+      </div>
+      {inputJSONMode ? (
+        <TestRunJsonInput values={values} setValues={setValues} />
+      ) : (
+        <TestRunForm values={values} setValues={setValues} />
+      )}
       {errors?.map((e) => (
         <div className={styles.error} key={e}>
           {e}
@@ -124,7 +146,7 @@ export const TestRunSidePanel: FC<TestRunSidePanelProps> = ({ visible, onCancel 
       mask={false}
       motion={false}
       onCancel={onClose}
-      width={368}
+      width={400}
       headerStyle={{
         display: 'none',
       }}
