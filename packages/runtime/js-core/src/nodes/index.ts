@@ -8,9 +8,11 @@ import { INodeExecutorFactory } from '@flowgram.ai/runtime-interface';
 import { StartExecutor } from './start';
 import { LoopExecutor } from './loop';
 import { LLMExecutor } from './llm';
+import { HTTPExecutor } from './http';
 import { EndExecutor } from './end';
 import { BlockEndExecutor, BlockStartExecutor } from './empty';
 import { ConditionExecutor } from './condition';
+import { CodeExecutor } from './code';
 
 export const WorkflowRuntimeNodeExecutors: INodeExecutorFactory[] = [
   StartExecutor,
@@ -20,4 +22,6 @@ export const WorkflowRuntimeNodeExecutors: INodeExecutorFactory[] = [
   LoopExecutor,
   BlockStartExecutor,
   BlockEndExecutor,
+  HTTPExecutor,
+  CodeExecutor,
 ];
