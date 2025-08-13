@@ -9,11 +9,12 @@ import { JsonSchemaUtils, IJsonSchema } from '@flowgram.ai/json-schema';
 import { IconButton } from '@douyinfe/semi-ui';
 import { IconSetting } from '@douyinfe/semi-icons';
 
-import { VariableSelector } from '../variable-selector';
-import { TypeSelector } from '../type-selector';
-import { Strategy } from '../constant-input/types';
-import { ConstantInput } from '../constant-input';
-import { IFlowConstantRefValue } from '../../typings/flow-value';
+import { IFlowConstantRefValue } from '@/typings/flow-value';
+import { createInjectMaterial } from '@/shared';
+import { InjectVariableSelector } from '@/components/variable-selector';
+import { TypeSelector } from '@/components/type-selector';
+import { ConstantInput, ConstantInputStrategy } from '@/components/constant-input';
+
 import { UIContainer, UIMain, UITrigger, UIType } from './styles';
 import { useIncludeSchema, useRefVariable, useSelectSchema } from './hooks';
 
@@ -25,7 +26,7 @@ interface PropsType {
   style?: React.CSSProperties;
   schema?: IJsonSchema;
   constantProps?: {
-    strategies?: Strategy[];
+    strategies?: ConstantInputStrategy[];
     schema?: IJsonSchema; // set schema of constant input only
     [key: string]: any;
   };
@@ -88,7 +89,7 @@ export function DynamicValueInput({
     if (value?.type === 'ref') {
       // Display Variable Or Delete
       return (
-        <VariableSelector
+        <InjectVariableSelector
           style={{ width: '100%' }}
           value={value?.content}
           onChange={(_v) => onChange(_v ? { type: 'ref', content: _v } : undefined)}
@@ -108,7 +109,7 @@ export function DynamicValueInput({
         readonly={readonly}
         strategies={[...(constantProps?.strategies || [])]}
         fallbackRenderer={() => (
-          <VariableSelector
+          <InjectVariableSelector
             style={{ width: '100%' }}
             onChange={(_v) => onChange(_v ? { type: 'ref', content: _v } : undefined)}
             includeSchema={includeSchema}
@@ -121,7 +122,7 @@ export function DynamicValueInput({
   };
 
   const renderTrigger = () => (
-    <VariableSelector
+    <InjectVariableSelector
       style={{ width: '100%' }}
       value={value?.type === 'ref' ? value?.content : undefined}
       onChange={(_v) => onChange({ type: 'ref', content: _v })}
@@ -141,3 +142,6 @@ export function DynamicValueInput({
     </UIContainer>
   );
 }
+
+DynamicValueInput.renderKey = 'dynamic-value-input-render-key';
+export const InjectDynamicValueInput = createInjectMaterial(DynamicValueInput);

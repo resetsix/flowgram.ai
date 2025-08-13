@@ -141,7 +141,7 @@ export function createFreeLayoutPreset(
       );
     }
     if (opts.history?.enable) {
-      plugins.push(createFreeHistoryPlugin(opts.history));
+      plugins.push(createFreeHistoryPlugin(opts.history as any));
     }
 
     /**
@@ -196,6 +196,9 @@ export function createFreeLayoutPreset(
           if (!opts.scroll?.disableScrollBar) {
             // 控制条
             ctx.playground.registerLayer(FlowScrollBarLayer);
+          }
+          if (opts.scroll?.disableScroll) {
+            ctx.playground.config.scrollDisable = true;
           }
           if (opts.onContentChange) {
             ctx.document.onContentChange((event) => opts.onContentChange!(ctx, event));

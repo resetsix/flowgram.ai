@@ -5,13 +5,15 @@
 
 import React from 'react';
 
+import { I18n } from '@flowgram.ai/editor';
 import { Button, IconButton } from '@douyinfe/semi-ui';
 import { IconDelete, IconPlus } from '@douyinfe/semi-icons';
 
+import { IFlowConstantRefValue, IFlowValue } from '@/typings';
+import { useObjectList } from '@/hooks';
+import { InjectDynamicValueInput } from '@/components/dynamic-value-input';
+
 import { PropsType } from './types';
-import { DynamicValueInput } from '../dynamic-value-input';
-import { IFlowConstantRefValue, IFlowValue } from '../../typings';
-import { useObjectList } from '../../hooks';
 import { UIRow, UIRows } from './styles';
 import { BlurInput } from './components/blur-input';
 
@@ -41,9 +43,9 @@ export function InputsValues({
               size="small"
               value={item.key}
               onChange={(v) => updateKey(item.id, v)}
-              placeholder="Input Key"
+              placeholder={I18n.t('Input Key')}
             />
-            <DynamicValueInput
+            <InjectDynamicValueInput
               style={{ flexGrow: 1 }}
               readonly={readonly}
               value={item.value as IFlowConstantRefValue}

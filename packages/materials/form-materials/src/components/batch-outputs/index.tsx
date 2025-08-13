@@ -8,9 +8,10 @@ import React from 'react';
 import { Button, Input } from '@douyinfe/semi-ui';
 import { IconDelete, IconPlus } from '@douyinfe/semi-icons';
 
+import { useObjectList } from '@/hooks';
+import { InjectVariableSelector } from '@/components/variable-selector';
+
 import { PropsType } from './types';
-import { VariableSelector } from '../variable-selector';
-import { useObjectList } from '../../hooks';
 import { UIRow, UIRows } from './styles';
 
 export function BatchOutputs(props: PropsType) {
@@ -30,7 +31,7 @@ export function BatchOutputs(props: PropsType) {
               value={item.key}
               onChange={(v) => updateKey(item.id, v)}
             />
-            <VariableSelector
+            <InjectVariableSelector
               style={{ flexGrow: 1 }}
               readonly={readonly}
               value={item.value?.content}

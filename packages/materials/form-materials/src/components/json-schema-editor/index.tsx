@@ -17,7 +17,8 @@ import {
   IconMinus,
 } from '@douyinfe/semi-icons';
 
-import { TypeSelector } from '../type-selector';
+import { InjectTypeSelector } from '@/components/type-selector';
+
 import { ConfigType, PropertyValueType } from './types';
 import {
   IconAddChildren,
@@ -40,6 +41,8 @@ import { usePropertiesEdit } from './hooks';
 import { DefaultValue } from './default-value';
 import { BlurInput } from './components/blur-input';
 
+const DEFAULT = { type: 'object' };
+
 export function JsonSchemaEditor(props: {
   value?: IJsonSchema;
   onChange?: (value: IJsonSchema) => void;
@@ -47,7 +50,7 @@ export function JsonSchemaEditor(props: {
   className?: string;
   readonly?: boolean;
 }) {
-  const { value = { type: 'object' }, config = {}, onChange: onChangeProps, readonly } = props;
+  const { value = DEFAULT, config = {}, onChange: onChangeProps, readonly } = props;
   const { propertyList, onAddProperty, onRemoveProperty, onEditProperty } = usePropertiesEdit(
     value,
     onChangeProps
@@ -79,7 +82,7 @@ export function JsonSchemaEditor(props: {
         icon={<IconPlus />}
         onClick={onAddProperty}
       >
-        {config?.addButtonText ?? 'Add'}
+        {config?.addButtonText ?? I18n.t('Add')}
       </Button>
     </UIContainer>
   );
@@ -121,7 +124,7 @@ function PropertyEdit(props: {
 
   const typeSelectorValue = useMemo(() => ({ type, items }), [type, items]);
 
-  const { propertyList, isDrilldownObject, onAddProperty, onRemoveProperty, onEditProperty } =
+  const { propertyList, canAddField, onAddProperty, onRemoveProperty, onEditProperty } =
     usePropertiesEdit(value, onChangeProps);
 
   const onChange = (key: string, _value: any) => {
@@ -131,7 +134,7 @@ function PropertyEdit(props: {
     });
   };
 
-  const showCollapse = isDrilldownObject && propertyList.length > 0;
+  const showCollapse = canAddField && propertyList.length > 0;
 
   return (
     <>
@@ -169,7 +172,7 @@ function PropertyEdit(props: {
               />
             </UIName>
             <UIType>
-              <TypeSelector
+              <InjectTypeSelector
                 value={typeSelectorValue}
                 readonly={readonly}
                 onChange={(_value) => {
@@ -197,7 +200,7 @@ function PropertyEdit(props: {
                   setExpand((_expand) => !_expand);
                 }}
               />
-              {isDrilldownObject && (
+              {canAddField && (
                 <IconButton
                   disabled={readonly}
                   size="small"
@@ -230,7 +233,7 @@ function PropertyEdit(props: {
                   config?.descPlaceholder ?? I18n.t('Help LLM to understand the property')
                 }
               />
-              {$level === 0 && type && type !== 'array' && (
+              {$level === 0 && (
                 <>
                   <UILabel style={{ marginTop: 10 }}>
                     {config?.defaultValueTitle ?? I18n.t('Default Value')}
