@@ -8,13 +8,10 @@ import { ConditionOperator } from '@flowgram.ai/runtime-interface';
 
 import { ConditionHandler } from '../type';
 
-export const conditionNullHandler: ConditionHandler = (condition) => {
+export const conditionMapHandler: ConditionHandler = (condition) => {
   const { operator } = condition;
-  const leftValue = condition.leftValue as unknown | null;
+  const leftValue = condition.leftValue as object;
   // Switch case share scope, so we need to use if else here
-  if (operator === ConditionOperator.EQ) {
-    return isNil(leftValue) && isNil(condition.rightValue);
-  }
   if (operator === ConditionOperator.IS_EMPTY) {
     return isNil(leftValue);
   }
