@@ -7,13 +7,7 @@ import React from 'react';
 
 import { nanoid } from 'nanoid';
 import { inject, injectable, optional, named } from 'inversify';
-import {
-  Disposable,
-  DisposableCollection,
-  domUtils,
-  Emitter,
-  type Event,
-} from '@flowgram.ai/utils';
+import { Disposable, DisposableCollection, domUtils, type Event } from '@flowgram.ai/utils';
 import { CommandService } from '@flowgram.ai/command';
 
 import { SelectionService } from './services';
@@ -44,11 +38,6 @@ import {
 } from './common';
 // import { PlaygroundCommandRegistry, PlaygroundId, toContextMenuPath } from './playground-registries';
 
-const playgroundInstances: Set<Playground> = new Set();
-
-const playgroundInstanceCreateEmitter = new Emitter<Playground>();
-const playgroundInstanceDisposeEmitter = new Emitter<Playground>();
-
 @injectable()
 export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
   readonly toDispose = new DisposableCollection();
@@ -73,35 +62,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
   private playgroundClassName = nanoid();
 
   private _resizePolling = new ResizePolling();
-
-  static getLatest(): Playground | undefined {
-    const instances = Playground.getAllInstances();
-    return instances[instances.length - 1];
-  }
-
-  // static getSelection(selectionService: SelectionService): Entity[] {
-  //   const selection = selectionService.selection;
-  //   if (!selection || !Array.isArray(selection)) return [];
-  //   if (selection.find(s => !(s instanceof Entity) || !s.hasAble(Selectable))) return [];
-  //   return selection;
-  // }
-  static getAllInstances(): Playground[] {
-    const result: Playground[] = [];
-    for (const p of playgroundInstances.values()) {
-      result.push(p);
-    }
-    return result;
-  }
-
-  /**
-   * 有实例创建
-   */
-  static onInstanceCreate = playgroundInstanceCreateEmitter.event;
-
-  /**
-   * 有实例销毁
-   */
-  static onInstanceDispose = playgroundInstanceDisposeEmitter.event;
 
   constructor(
     // @inject(PlaygroundId) readonly id: PlaygroundId,
@@ -141,9 +101,7 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
       this.selectionService,
       this._resizePolling,
       Disposable.create(() => {
-        playgroundInstances.delete(this);
         this.node.remove();
-        playgroundInstanceDisposeEmitter.fire(this);
       }),
       pipelineRenderer.onAllLayersRendered(() => {
         this.contributions.forEach((contrib) => contrib.onAllLayersRendered?.(this));
@@ -154,6 +112,7 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
       this.entityManager.createEntity<EditorStateConfigEntity>(EditorStateConfigEntity);
     this.entityManager.createEntity(PlaygroundConfigEntity);
     this.node = playgroundConfig.node || document.createElement('div');
+    this.config.playgroundDomNode = this.node;
     this.toDispose.pushAll([
       // 浏览器原生的 scrollIntoView 会导致页面的滚动
       // 需要禁用这种操作，否则会引发画布 viewport 计算问题
@@ -196,7 +155,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
     this.onFocus = this.pipelineRegistry.onFocusEmitter.event;
     this.onZoom = this.pipelineRegistry.onZoomEmitter.event;
     this.onScroll = this.pipelineRegistry.onScrollEmitter.event;
-    playgroundInstances.add(this);
   }
 
   get context(): CONTEXT {
@@ -215,7 +173,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
     for (const contrib of contributions) {
       if (contrib.onInit) contrib.onInit(this);
     }
-    playgroundInstanceCreateEmitter.fire(this);
   }
 
   get pipelineNode(): HTMLDivElement {
@@ -280,10 +237,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
     if (this.isReady) return;
     this.isReady = true;
     if (this.playgroundConfig.autoResize) {
-      const resize = () => {
-        if (this.disposed) return;
-        this.resize();
-      };
       const resizeWithPolling = () => {
         if (this.disposed) return;
         this.resize();
@@ -309,11 +262,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
           )
         );
       }
-      this.toDispose.push(
-        domUtils.addStandardDisposableListener(window.document, 'scroll', resize, {
-          passive: true,
-        })
-      );
       this.resize();
     }
     this.pipelineRegistry.ready();
@@ -344,8 +292,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
     if (!msg) {
       const boundingRect = this.node.getBoundingClientRect();
       msg = {
-        clientX: boundingRect.left,
-        clientY: boundingRect.top,
         width: boundingRect.width,
         height: boundingRect.height,
       };
@@ -365,8 +311,6 @@ export class Playground<CONTEXT = PlaygroundContext> implements Disposable {
       scrollY += (height - msg.height) / 2;
     }
     if (
-      oldConfig.clientY !== msg.clientY ||
-      oldConfig.clientX !== msg.clientX ||
       Math.round(msg.width) !== width ||
       Math.round(msg.height) !== height ||
       oldConfig.scrollX !== scrollX ||

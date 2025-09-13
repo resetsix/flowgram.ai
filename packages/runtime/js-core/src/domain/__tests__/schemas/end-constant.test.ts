@@ -22,9 +22,6 @@ describe('WorkflowRuntime end constant schema', () => {
     expect(context.statusCenter.workflow.status).toBe(WorkflowStatus.Processing);
     const result = await processing;
     expect(context.statusCenter.workflow.status).toBe(WorkflowStatus.Succeeded);
-    // eslint-disable-next-line no-console
-    console.log('@result', JSON.stringify(result));
-    // const c = { str: 'ABC', num: 123.123, int: 123, bool: false };
     expect(result).toStrictEqual({
       str: 'ABC',
       num: 123.123,

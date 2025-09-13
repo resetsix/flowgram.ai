@@ -8,9 +8,10 @@ import React from 'react';
 
 import { I18n } from '@flowgram.ai/editor';
 
+import { ConditionPresetOp } from '@/components/condition-context/op';
 import { CodeEditorMini } from '@/components/code-editor-mini';
 
-import { type JsonSchemaTypeRegistry } from '../manager';
+import { type JsonSchemaTypeRegistry } from '../types';
 
 export const objectRegistry: Partial<JsonSchemaTypeRegistry> = {
   type: 'object',
@@ -23,4 +24,8 @@ export const objectRegistry: Partial<JsonSchemaTypeRegistry> = {
       readonly={props.readonly}
     />
   ),
+  conditionRule: {
+    [ConditionPresetOp.IS_EMPTY]: null,
+    [ConditionPresetOp.IS_NOT_EMPTY]: null,
+  },
 };
