@@ -4,7 +4,7 @@
  */
 
 import { WorkflowDocument } from '@flowgram.ai/free-layout-core';
-import { PositionSchema, startTween, TransformData } from '@flowgram.ai/core';
+import { PositionSchema, startTween } from '@flowgram.ai/core';
 
 import { LayoutNode } from './type';
 import { LayoutStore } from './store';
@@ -30,7 +30,7 @@ export class LayoutPosition {
       startTween({
         from: { d: 0 },
         to: { d: 100 },
-        duration: 300,
+        duration: this.store.options.animationDuration ?? 0,
         onUpdate: (v) => {
           this.store.nodes.forEach((layoutNode) => {
             this.updateNodePosition({ layoutNode, step: v.d });
@@ -45,14 +45,14 @@ export class LayoutPosition {
 
   private updateNodePosition(params: { layoutNode: LayoutNode; step: number }): void {
     const { layoutNode, step } = params;
-    const transform = layoutNode.entity.getData(TransformData);
+    const { transform, bounds } = layoutNode.entity.transform;
     const position: PositionSchema = {
       x: layoutNode.position.x + layoutNode.offset.x,
       y: layoutNode.position.y + layoutNode.offset.y,
     };
-    const deltaX = ((position.x - transform.position.x) * step) / 100;
-    const deltaY = ((position.y - transform.bounds.height / 2 - transform.position.y) * step) / 100;
 
+    const deltaX = ((position.x - transform.position.x) * step) / 100;
+    const deltaY = ((position.y - bounds.height / 2 - bounds.y) * step) / 100;
     transform.update({
       position: {
         x: transform.position.x + deltaX,

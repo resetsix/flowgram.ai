@@ -97,7 +97,7 @@ git clone git@github.com:bytedance/flowgram.ai.git
 3. **Install required global dependencies**
 
 ``` bash
-npm i -g pnpm@9.12.0 @microsoft/rush@5.150.0
+npm i -g pnpm@10.6.5 @microsoft/rush@5.150.0
 ```
 
 4. **Install project dependencies**
@@ -132,6 +132,7 @@ Enjoy it!
 
 - [Coze Studio](https://github.com/coze-dev/coze-studio) is an all-in-one AI agent development tool. Providing the latest large models and tools, various development modes and frameworks, Coze Studio offers the most convenient AI agent development environment, from development to deployment.
 - [NNDeploy](https://github.com/NNDeploy/nndeploy) is a workflow-based multi-platform ai deployment tool.
+- [certimate](https://github.com/certimate-go/certimate)  is an open-source SSL certificate management tool that helps you automatically apply for and deploy SSL certificates with a visual workflow. It is one of the ACME client options listed in the official documentation of Let's Encrypt.
 
 ## 🌟 Contact us
 
