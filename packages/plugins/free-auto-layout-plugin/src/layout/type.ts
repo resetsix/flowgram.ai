@@ -26,7 +26,6 @@ export interface ILayout {
   init(params: LayoutParams, options: LayoutOptions): void;
   layout(): void;
   position(): Promise<void>;
-  get size(): LayoutSize;
 }
 
 export interface LayoutSize {
@@ -53,6 +52,13 @@ export interface LayoutNode {
   offset: {
     x: number;
     y: number;
+  };
+  /** 边距 */
+  padding: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
   };
   /** 宽高 */
   size: LayoutSize;
@@ -96,9 +102,11 @@ export interface LayoutParams {
 }
 
 export interface LayoutOptions {
+  containerNode?: WorkflowNodeEntity;
   getFollowNode?: GetFollowNode;
   enableAnimation?: boolean;
   animationDuration?: number;
+  disableFitView?: boolean;
 }
 
 export interface LayoutConfig {

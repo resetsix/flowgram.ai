@@ -4,12 +4,14 @@
  */
 
 import { inject, injectable } from 'inversify';
+import { Rectangle } from '@flowgram.ai/utils';
 import {
   WorkflowDocument,
   WorkflowLineEntity,
   WorkflowNodeEntity,
   WorkflowNodeLinesData,
 } from '@flowgram.ai/free-layout-core';
+import { Playground } from '@flowgram.ai/core';
 
 import { AutoLayoutOptions } from './type';
 import { LayoutConfig, LayoutEdge, LayoutNode } from './layout/type';
@@ -18,6 +20,9 @@ import { DefaultLayoutConfig, Layout, type LayoutOptions } from './layout';
 
 @injectable()
 export class AutoLayoutService {
+  @inject(Playground)
+  private playground: Playground;
+
   @inject(WorkflowDocument) private readonly document: WorkflowDocument;
 
   private layoutConfig: LayoutConfig = DefaultLayoutConfig;
@@ -34,9 +39,21 @@ export class AutoLayoutService {
       ...DefaultLayoutOptions,
       ...options,
     };
-    const root = this.createLayoutNode(this.document.root, options);
-    const layouts = await this.layoutNode(root, layoutOptions);
-    await Promise.all(layouts.map((layout) => layout.position()));
+    const containerNode = layoutOptions.containerNode ?? this.document.root;
+    const container = this.createLayoutNode(containerNode, options);
+    const layouts = await this.layoutNode(container, layoutOptions);
+    const rect = this.getLayoutNodeRect(container);
+    const positionPromise = layouts.map((layout) => layout.position());
+    const fitViewPromise = this.fitView(layoutOptions, rect);
+    await Promise.all([...positionPromise, fitViewPromise]);
+  }
+
+  private async fitView(options: LayoutOptions, rect: Rectangle): Promise<void> {
+    if (options.disableFitView === true) {
+      return;
+    }
+    // 留出 30 像素的边界
+    return this.playground.config.fitView(rect, options.enableAnimation, 30);
   }
 
   private async layoutNode(container: LayoutNode, options: LayoutOptions): Promise<Layout[]> {
@@ -51,8 +68,11 @@ export class AutoLayoutService {
     const layout = new Layout(this.layoutConfig);
     layout.init({ container, layoutNodes, layoutEdges }, options);
     layout.layout();
-    const { size } = layout;
-    container.size = size;
+    const rect = this.getLayoutNodeRect(container);
+    container.size = {
+      width: rect.width,
+      height: rect.height,
+    };
     return [...childrenLayouts, layout];
   }
 
@@ -69,7 +89,7 @@ export class AutoLayoutService {
     const layoutNodes = this.createLayoutNodes(blocks, options);
     const layoutEdges = this.createLayoutEdges(edges);
 
-    const { bounds } = node.transform;
+    const { bounds, padding } = node.transform;
     const { width, height, center } = bounds;
     const { x, y } = center;
     const layoutNode: LayoutNode = {
@@ -80,6 +100,7 @@ export class AutoLayoutService {
       order: -1, // 初始化时，节点还未布局，顺序为-1
       position: { x, y },
       offset: { x: 0, y: 0 },
+      padding,
       size: { width, height },
       layoutNodes,
       layoutEdges,
@@ -123,5 +144,23 @@ export class AutoLayoutService {
       .flat();
 
     return lines;
+  }
+
+  private getLayoutNodeRect(layoutNode: LayoutNode): Rectangle {
+    const rects = layoutNode.layoutNodes.map((node) => this.layoutNodeRect(node));
+    const rect = Rectangle.enlarge(rects);
+    const { padding } = layoutNode;
+    const width = rect.width + padding.left + padding.right;
+    const height = rect.height + padding.top + padding.bottom;
+    const x = rect.x - padding.left;
+    const y = rect.y - padding.top;
+    return new Rectangle(x, y, width, height);
+  }
+
+  private layoutNodeRect(layoutNode: LayoutNode): Rectangle {
+    const { width, height } = layoutNode.size;
+    const x = layoutNode.position.x - width / 2;
+    const y = layoutNode.position.y - height / 2;
+    return new Rectangle(x, y, width, height);
   }
 }
