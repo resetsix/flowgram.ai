@@ -3,42 +3,50 @@
  * SPDX-License-Identifier: MIT
  */
 
+import ReactDOM from 'react-dom';
 import { createElement } from 'react';
 
-import { injectable } from 'inversify';
-import { domUtils } from '@flowgram.ai/utils';
-import { Layer } from '@flowgram.ai/core';
+import { injectable, inject } from 'inversify';
+import { domUtils, Disposable } from '@flowgram.ai/utils';
+import { Layer, PluginContext } from '@flowgram.ai/core';
 
 import { PanelLayer as PanelLayerComp } from '../components/panel-layer';
+import { PanelManagerConfig } from './panel-config';
 
 @injectable()
 export class PanelLayer extends Layer {
-  node = domUtils.createDivWithClass('gedit-flow-panel-layer');
+  @inject(PanelManagerConfig) private readonly panelConfig: PanelManagerConfig;
+
+  @inject(PluginContext) private readonly pluginContext: PluginContext;
+
+  readonly panelRoot = domUtils.createDivWithClass('gedit-flow-panel-layer');
 
   layout: JSX.Element | null = null;
 
   onReady(): void {
+    this.panelConfig.getPopupContainer(this.pluginContext).appendChild(this.panelRoot);
+    this.toDispose.push(
+      Disposable.create(() => {
+        // Remove from PopupContainer
+        this.panelRoot.remove();
+      })
+    );
     const commonStyle = {
       pointerEvents: 'none',
-      zIndex: 11,
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      zIndex: 100,
     };
-    domUtils.setStyle(this.node, commonStyle);
-    this.config.onDataChange(() => {
-      const { width, height, scrollX, scrollY } = this.config.config;
-      domUtils.setStyle(this.node, {
-        ...commonStyle,
-        width,
-        height,
-        left: scrollX,
-        top: scrollY,
-      });
-    });
+    domUtils.setStyle(this.panelRoot, commonStyle);
   }
 
   render(): JSX.Element {
     if (!this.layout) {
       this.layout = createElement(PanelLayerComp);
     }
-    return this.layout;
+    return ReactDOM.createPortal(this.layout, this.panelRoot);
   }
 }
