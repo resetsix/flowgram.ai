@@ -40,6 +40,10 @@ export const useEditorProps = ({ registries, initialData, plugins, onSave }: Edi
        * 初始化数据
        */
       initialData,
+
+      scroll: {
+        enableScrollLimit: true,
+      },
       /**
        * Node registries
        * 节点注册
@@ -67,8 +71,10 @@ export const useEditorProps = ({ registries, initialData, plugins, onSave }: Edi
         renderDefaultNode: (props: WorkflowNodeProps) => {
           const { form } = useNodeRender();
           return (
-            <WorkflowNodeRenderer className="demo-free-node" node={props.node}>
-              <div className="demo-free-node-wrapper">{form?.render()}</div>
+            <WorkflowNodeRenderer className="demo-free-material-node" node={props.node}>
+              <div className="demo-free-material-node-wrapper" style={{ padding: 12 }}>
+                {form?.render()}
+              </div>
             </WorkflowNodeRenderer>
           );
         },
@@ -97,14 +103,12 @@ export const useEditorProps = ({ registries, initialData, plugins, onSave }: Edi
        * Playground init
        */
       onInit: (ctx) => {},
-      onReady(ctx) {
-        const autoLayoutTool = ctx.get(WorkflowAutoLayoutTool);
-        autoLayoutTool.handle();
-      },
       /**
        * Playground render
        */
       onAllLayersRendered(ctx) {
+        const autoLayoutTool = ctx.get(WorkflowAutoLayoutTool);
+        autoLayoutTool.handle();
         //  Fitview
         ctx.document.fitView(false);
       },
