@@ -2,7 +2,7 @@
 
 自由布局最佳实践 demo
 
-## 安装 
+## 安装
 
 ```shell
 npx @flowgram.ai/create-app@latest free-layout
@@ -25,6 +25,7 @@ npx @flowgram.ai/create-app@latest free-layout
 - **@flowgram.ai/free-lines-plugin**: 连线渲染插件
 - **@flowgram.ai/free-node-panel-plugin**: 节点添加面板渲染插件
 - **@flowgram.ai/minimap-plugin**: 缩略图插件
+- **@flowgram.ai/download-plugin**: 下载插件
 - **@flowgram.ai/free-container-plugin**: 子画布插件
 - **@flowgram.ai/free-group-plugin**: 分组插件
 - **@flowgram.ai/form-materials**: 表单物料
@@ -69,7 +70,7 @@ src/
 │   ├── form-inputs/         # 表单输入
 │   └── form-item/           # 表单项
 │   └── feedback.tsx         # 表单校验错误渲染
-├── hooks/                   
+├── hooks/
 │   ├── index.ts
 │   ├── use-editor-props.tsx # 编辑器属性钩子
 │   ├── use-is-sidebar.ts    # 侧边栏状态钩子
@@ -217,22 +218,22 @@ export function useEditorProps(
     readonly: false,                     // 是否只读
     initialData,                         // 初始数据
     nodeRegistries,                      // 节点注册表
-    
+
     // 核心功能配置
     playground: { preventGlobalGesture: true /* 阻止 mac 浏览器手势翻页 */ },
     nodeEngine: { enable: true },
     variableEngine: { enable: true },
     history: { enable: true, enableChangeNode: true },
-    
+
     // 业务逻辑配置
     canAddLine: (ctx, fromPort, toPort) => { /* 连线规则 */ },
     canDeleteLine: (ctx, line) => { /* 删除连线规则 */ },
     canDeleteNode: (ctx, node) => { /* 删除节点规则 */ },
     canDropToNode: (ctx, params) => { /* 拖拽规则 */ },
-    
+
     // 插件配置
     plugins: () => [/* 插件列表 */],
-    
+
     // 事件处理
     onContentChange: debounce((ctx, event) => { /* 自动保存 */ }, 1000),
     onInit: (ctx) => { /* 初始化 */ },

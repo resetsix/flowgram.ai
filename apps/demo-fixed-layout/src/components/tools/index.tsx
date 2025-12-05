@@ -19,6 +19,7 @@ import { MinimapSwitch } from './minimap-switch';
 import { Minimap } from './minimap';
 import { Interactive } from './interactive';
 import { FitView } from './fit-view';
+import { DownloadTool } from './download';
 
 export const DemoTools = () => {
   const tools = usePlaygroundTools();
@@ -57,6 +58,7 @@ export const DemoTools = () => {
             onClick={() => tools.redo()}
           />
         </Tooltip>
+        <DownloadTool />
         <Save disabled={playground.config.readonly} />
         <Run />
       </ToolSection>

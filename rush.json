@@ -712,6 +712,15 @@
             ]
         },
         {
+            "packageName": "@flowgram.ai/download-plugin",
+            "projectFolder": "packages/plugins/download-plugin",
+            "versionPolicyName": "publishPolicy",
+            "tags": [
+                "level-1",
+                "team-flow"
+            ]
+        },
+        {
             "packageName": "@flowgram.ai/node",
             "projectFolder": "packages/node-engine/node",
             "versionPolicyName": "publishPolicy",
