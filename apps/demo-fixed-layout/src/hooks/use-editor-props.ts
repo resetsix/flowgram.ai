@@ -18,6 +18,7 @@ import {
   ShortcutsRegistry,
   ConstantKeys,
 } from '@flowgram.ai/fixed-layout-editor';
+import { createDownloadPlugin } from '@flowgram.ai/download-plugin';
 
 import { type FlowNodeRegistry } from '../typings';
 import { shortcutGetter } from '../shortcuts';
@@ -270,6 +271,11 @@ export function useEditorProps(
             overlayColor: 'rgba(255, 255, 255, 0)',
           },
         }),
+        /**
+         * Download plugin
+         * 下载插件
+         */
+        createDownloadPlugin({}),
         /**
          * Group plugin
          * 分组插件

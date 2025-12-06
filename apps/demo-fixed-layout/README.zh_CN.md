@@ -26,6 +26,7 @@ npx @flowgram.ai/create-app@latest fixed-layout
 - **@flowgram.ai/form-materials**: 表单物料库
 - **@flowgram.ai/group-plugin**: 分组插件
 - **@flowgram.ai/minimap-plugin**: 缩略图插件
+- **@flowgram.ai/download-plugin**: 下载插件
 
 ## 代码说明
 
@@ -191,11 +192,11 @@ src/
 │           └── variable-panel.tsx
 │
 ├── services/                  # 服务层
-│   ├── index.ts               
+│   ├── index.ts
 │   └── custom-service.ts      # 自定义服务
 │
 ├── shortcuts/                 # 快捷键系统
-│   ├── index.ts               
+│   ├── index.ts
 │   ├── constants.ts           # 快捷键常量
 │   └── utils.ts               # 快捷键工具函数
 │
@@ -238,7 +239,7 @@ src/
 </FixedLayoutEditorProvider>
 ```
 
-**应用场景**: 
+**应用场景**:
 - `FixedLayoutEditorProvider`: 提供编辑器核心功能和状态
 - `SidebarProvider`: 管理侧边栏的显示状态和选中节点
 
