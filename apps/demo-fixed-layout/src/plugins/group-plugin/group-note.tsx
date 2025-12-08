@@ -13,6 +13,7 @@ import {
 import type { AutosizeRow } from '@douyinfe/semi-ui/lib/es/input/textarea';
 import { Tooltip } from '@douyinfe/semi-ui';
 
+import { useFormValue } from '../../hooks';
 import MultiLineEditor from './multilang-textarea-editor';
 
 interface GroupNoteProps {
@@ -26,6 +27,7 @@ interface GroupNoteProps {
 
 export const GroupNote: FC<GroupNoteProps> = (props) => {
   const {
+    groupNode,
     groupController,
     containerStyle = {},
     textStyle = {},
@@ -33,7 +35,11 @@ export const GroupNote: FC<GroupNoteProps> = (props) => {
     enableTooltip = false,
   } = props;
 
-  const [editingValue, setEditingValue] = useState<string>('');
+  const [editingValue, setEditingValue] = useFormValue<string>({
+    node: groupNode,
+    fieldName: 'note',
+    defaultValue: '',
+  });
 
   const ref = useRef<HTMLDivElement>(null);
   const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
