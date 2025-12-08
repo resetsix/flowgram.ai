@@ -11,5 +11,6 @@ export type {
   NodePanelRender,
   NodePanelLayerOptions as NodePanelServiceOptions,
   NodePanelPluginOptions,
+  CallNodePanelParams,
 } from './type';
 export { type IWorkflowNodePanelUtils, WorkflowNodePanelUtils } from './utils';
