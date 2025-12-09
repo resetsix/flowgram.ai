@@ -7,13 +7,13 @@
 import { useEffect, type CSSProperties } from 'react';
 import React from 'react';
 
-import { FlowGroupController } from '@flowgram.ai/document';
 import type { Rectangle } from '@flowgram.ai/utils';
+import { FlowGroupController } from '@flowgram.ai/document';
 
 import { IGroupBox } from '../type';
 import { useHover } from './hooks';
 
-export const GroupBox: IGroupBox = props => {
+export const GroupBox: IGroupBox = (props) => {
   const { groupNode } = props;
   const groupController = FlowGroupController.create(groupNode)!;
   const bounds: Rectangle = groupController.bounds;
@@ -30,7 +30,7 @@ export const GroupBox: IGroupBox = props => {
   const defaultBackgroundStyle: CSSProperties = {
     borderRadius: 10,
     zIndex: -1,
-    outline: `${hover ? 3 : 1}px solid rgb(97, 69, 211)`,
+    outline: `${hover ? 2 : 1}px solid rgb(97, 69, 211)`,
     backgroundColor: 'rgb(236 233 247)',
   };
 

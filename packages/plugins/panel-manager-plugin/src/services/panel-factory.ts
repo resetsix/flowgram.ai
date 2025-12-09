@@ -30,6 +30,7 @@ const PANEL_SIZE_DEFAULT = 400;
 export interface PanelEntityState {
   size: number;
   fullscreen: boolean;
+  visible: boolean;
 }
 
 @injectable()
@@ -87,6 +88,18 @@ export class PanelEntity {
     return this.factory.resize !== undefined ? this.factory.resize : this.globalConfig.autoResize;
   }
 
+  get keepDOM() {
+    return this.factory.keepDOM;
+  }
+
+  get visible() {
+    return this.store.getState().visible;
+  }
+
+  set visible(next: boolean) {
+    this.store.setState({ visible: next });
+  }
+
   get layer() {
     return document.querySelector(
       this.mode ? '.gedit-flow-panel-layer-wrap-docked' : '.gedit-flow-panel-layer-wrap-floating'
@@ -109,6 +122,7 @@ export class PanelEntity {
       {
         size: this.factory.defaultSize || PANEL_SIZE_DEFAULT,
         fullscreen: this.factory.fullscreen || false,
+        ...(this.factory.keepDOM ? { visible: true } : {}),
       }
     );
 

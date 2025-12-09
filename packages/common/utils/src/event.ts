@@ -19,8 +19,6 @@ export namespace Event {
 }
 
 export class Emitter<T = any> {
-  static LEAK_WARNING_THRESHHOLD = 175;
-
   private _event?: Event<T>;
 
   private _listeners?: EventListener<T>[];
@@ -37,9 +35,6 @@ export class Emitter<T = any> {
           this._listeners = [];
         }
         const finalListener = thisArgs ? listener.bind(thisArgs) : listener;
-        if (this._listeners.length >= Emitter.LEAK_WARNING_THRESHHOLD) {
-          console.warn(`[Emitter] Listeners length >= ${Emitter.LEAK_WARNING_THRESHHOLD}`);
-        }
         this._listeners.push(finalListener);
 
         const eventDisposable: Disposable = {

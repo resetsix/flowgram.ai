@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import React from 'react';
+
 import { IPoint, PaddingSchema, Point } from '@flowgram.ai/utils';
 import {
   FlowGroupController,
@@ -47,6 +49,9 @@ export const GroupRegister: FlowNodeRegistry = {
         right: PositionConfig.paddingWithAddLabel,
       };
     },
+  },
+  formMeta: {
+    render: () => React.createElement('div'),
   },
   getLines(transition) {
     const { transform } = transition;
