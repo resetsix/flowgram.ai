@@ -20,7 +20,7 @@ import {
 } from '@flowgram.ai/free-layout-editor';
 import { createFreeGroupPlugin } from '@flowgram.ai/free-group-plugin';
 import { createContainerNodePlugin } from '@flowgram.ai/free-container-plugin';
-import { createDownloadPlugin } from '@flowgram.ai/download-plugin';
+import { createDownloadPlugin } from '@flowgram.ai/export-plugin';
 
 import { canContainNode, onDragLineEnd } from '../utils';
 import { FlowNodeRegistry, FlowDocumentJSON } from '../typings';

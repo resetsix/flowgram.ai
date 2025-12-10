@@ -26,7 +26,7 @@ npx @flowgram.ai/create-app@latest fixed-layout
 - **@flowgram.ai/form-materials**: 表单物料库
 - **@flowgram.ai/group-plugin**: 分组插件
 - **@flowgram.ai/minimap-plugin**: 缩略图插件
-- **@flowgram.ai/download-plugin**: 下载插件
+- **@flowgram.ai/export-plugin**: 下载/导出插件
 
 ## 代码说明
 

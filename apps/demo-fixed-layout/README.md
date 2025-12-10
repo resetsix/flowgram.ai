@@ -26,7 +26,7 @@ npx @flowgram.ai/create-app@latest fixed-layout
 - @flowgram.ai/form-materials: Form materials library
 - @flowgram.ai/group-plugin: Group plugin
 - @flowgram.ai/minimap-plugin: Minimap plugin
-- @flowgram.ai/download-plugin: Download plugin
+- @flowgram.ai/export-plugin: Download/export plugin
 
 ## Code Overview
 

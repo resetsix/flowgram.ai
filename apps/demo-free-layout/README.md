@@ -25,7 +25,7 @@ npx @flowgram.ai/create-app@latest free-layout
 - **@flowgram.ai/free-lines-plugin**: Connection line rendering plugin
 - **@flowgram.ai/free-node-panel-plugin**: Node add-panel rendering plugin
 - **@flowgram.ai/minimap-plugin**: Minimap plugin
-- **@flowgram.ai/download-plugin**: Download plugin
+- **@flowgram.ai/export-plugin**: Download/export plugin
 - **@flowgram.ai/free-container-plugin**: Sub-canvas plugin
 - **@flowgram.ai/free-group-plugin**: Grouping plugin
 - **@flowgram.ai/form-materials**: Form materials

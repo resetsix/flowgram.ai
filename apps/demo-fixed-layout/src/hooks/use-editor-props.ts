@@ -18,7 +18,7 @@ import {
   ShortcutsRegistry,
   ConstantKeys,
 } from '@flowgram.ai/fixed-layout-editor';
-import { createDownloadPlugin } from '@flowgram.ai/download-plugin';
+import { createDownloadPlugin } from '@flowgram.ai/export-plugin';
 
 import { type FlowNodeRegistry } from '../typings';
 import { shortcutGetter } from '../shortcuts';
