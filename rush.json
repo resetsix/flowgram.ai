@@ -712,8 +712,8 @@
             ]
         },
         {
-            "packageName": "@flowgram.ai/download-plugin",
-            "projectFolder": "packages/plugins/download-plugin",
+            "packageName": "@flowgram.ai/export-plugin",
+            "projectFolder": "packages/plugins/export-plugin",
             "versionPolicyName": "publishPolicy",
             "tags": [
                 "level-1",

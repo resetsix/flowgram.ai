@@ -6,7 +6,7 @@
 import { useEffect, useState, type FC } from 'react';
 
 import { usePlayground, useService } from '@flowgram.ai/free-layout-editor';
-import { FlowDownloadFormat, FlowDownloadService } from '@flowgram.ai/download-plugin';
+import { FlowDownloadFormat, FlowDownloadService } from '@flowgram.ai/export-plugin';
 import { IconButton, Toast, Dropdown, Tooltip } from '@douyinfe/semi-ui';
 import { IconFilledArrowDown } from '@douyinfe/semi-icons';
 

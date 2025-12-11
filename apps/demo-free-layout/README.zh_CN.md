@@ -25,7 +25,7 @@ npx @flowgram.ai/create-app@latest free-layout
 - **@flowgram.ai/free-lines-plugin**: 连线渲染插件
 - **@flowgram.ai/free-node-panel-plugin**: 节点添加面板渲染插件
 - **@flowgram.ai/minimap-plugin**: 缩略图插件
-- **@flowgram.ai/download-plugin**: 下载插件
+- **@flowgram.ai/export-plugin**: 下载导出插件
 - **@flowgram.ai/free-container-plugin**: 子画布插件
 - **@flowgram.ai/free-group-plugin**: 分组插件
 - **@flowgram.ai/form-materials**: 表单物料
