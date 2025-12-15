@@ -49,7 +49,10 @@ export class LayoutPosition {
     const layoutPosition: PositionSchema = {
       x: layoutNode.position.x + layoutNode.offset.x,
       // layoutNode.position.y 是中心点，但画布节点原点在上边沿的中间，所以 y 坐标需要转化后一下
-      y: layoutNode.position.y - layoutNode.size.height / 2 + layoutNode.offset.y,
+      y:
+        layoutNode.position.y +
+        layoutNode.offset.y -
+        (layoutNode.size.height - layoutNode.padding.top - layoutNode.padding.bottom) / 2,
     };
 
     const deltaX = ((layoutPosition.x - transform.position.x) * step) / 100;
