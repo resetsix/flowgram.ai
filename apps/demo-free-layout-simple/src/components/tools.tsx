@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 
 import { usePlaygroundTools, useClientContext, LineType } from '@flowgram.ai/free-layout-editor';
 
+import { getBatchID } from '../nodes/batch-function';
+
 export function Tools() {
   const { history } = useClientContext();
   const tools = usePlaygroundTools();
@@ -28,7 +30,23 @@ export function Tools() {
       <button onClick={() => tools.zoomin()}>ZoomIn</button>
       <button onClick={() => tools.zoomout()}>ZoomOut</button>
       <button onClick={() => tools.fitView()}>Fitview</button>
-      <button onClick={() => tools.autoLayout()}>AutoLayout</button>
+      <button
+        onClick={() =>
+          tools.autoLayout({
+            getFollowNode: (node, context) => {
+              if (node.entity.flowNodeType !== 'batch_function') {
+                return;
+              }
+              const batchNodeID = getBatchID(node.entity.id);
+              return {
+                followTo: batchNodeID,
+              };
+            },
+          })
+        }
+      >
+        AutoLayout
+      </button>
       <button
         onClick={() =>
           tools.switchLineType(

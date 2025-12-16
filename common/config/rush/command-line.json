@@ -338,14 +338,6 @@
 			"shellCommand": "concurrently --kill-others --raw --prefix \"{name}\" --names [watch],[demo] -c white,blue \"rush build:watch --to-except @flowgram.ai/demo-free-layout-simple\" \"cd apps/demo-free-layout-simple && rushx ts-check && rushx dev\""
 		},
 		{
-			"name": "dev:demo-sub-canvas",
-			"commandKind": "global",
-			"summary": "⭐️️ run dev in app/demo-sub-canvas",
-			"autoinstallerName": "rush-commands",
-			"safeForSimultaneousRushProcesses": true,
-			"shellCommand": "concurrently --kill-others --raw --prefix \"{name}\" --names [watch],[demo] -c white,blue \"rush build:watch --to-except @flowgram.ai/demo-sub-canvas\" \"cd apps/demo-sub-canvas && rushx ts-check && rushx dev\""
-		},
-		{
 			"name": "dev:demo-nextjs",
 			"commandKind": "global",
 			"summary": "⭐️️ run dev in app/demo-nextjs",

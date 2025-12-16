@@ -20,14 +20,13 @@ export const renderForm = () => (
         style={{
           width: 40,
           height: 40,
-          borderRadius: '50%',
           cursor: 'move',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        START
+        END
       </div>
     </div>
   </>

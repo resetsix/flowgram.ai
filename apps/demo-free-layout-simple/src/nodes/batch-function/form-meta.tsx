@@ -10,7 +10,7 @@ const formHeight = 48;
 
 export const BatchFunctionFormRender = () => (
   <>
-    BATCH FUNCTION
+    <div className="demo-free-node-title">Batch Function</div>
     <SubCanvasRender offsetY={-formHeight} />
   </>
 );

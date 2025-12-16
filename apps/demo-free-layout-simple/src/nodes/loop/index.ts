@@ -75,7 +75,7 @@ export const LoopNodeRegistry: FlowNodeRegistry = {
       id: `loop_${nanoid(5)}`,
       type: 'loop',
       data: {
-        title: `Loop_${++index}`,
+        title: `loop_${++index}`,
       },
       blocks: [
         {
