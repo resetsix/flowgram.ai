@@ -3,6 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FlowNodeRegistry } from '../typings';
 import { VariableNodeRegistry } from './variable';
 import { StartNodeRegistry } from './start';
@@ -18,6 +23,7 @@ import { CodeNodeRegistry } from './code';
 import { BreakNodeRegistry } from './break';
 import { BlockStartNodeRegistry } from './block-start';
 import { BlockEndNodeRegistry } from './block-end';
+import { MultiConditionNodeRegistry } from "./multi-condition";
 export { WorkflowNodeType } from './constants';
 
 export const nodeRegistries: FlowNodeRegistry[] = [
@@ -35,4 +41,5 @@ export const nodeRegistries: FlowNodeRegistry[] = [
   BreakNodeRegistry,
   VariableNodeRegistry,
   GroupNodeRegistry,
+  MultiConditionNodeRegistry,
 ];
