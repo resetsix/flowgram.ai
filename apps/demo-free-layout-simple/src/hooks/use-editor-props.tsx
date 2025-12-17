@@ -13,9 +13,11 @@ import {
   WorkflowNodeRenderer,
   Field,
   useNodeRender,
+  FlowNodeMeta,
 } from '@flowgram.ai/free-layout-editor';
+import { createContainerNodePlugin } from '@flowgram.ai/free-container-plugin';
 
-import { nodeRegistries } from '../node-registries';
+import { nodeRegistries } from '../nodes';
 import { initialData } from '../initial-data';
 
 export const useEditorProps = () =>
@@ -91,9 +93,14 @@ export const useEditorProps = () =>
          * Render Node
          */
         renderDefaultNode: (props: WorkflowNodeProps) => {
-          const { form } = useNodeRender();
+          const { node, form } = useNodeRender();
+          const meta = node.getNodeMeta<FlowNodeMeta>();
           return (
-            <WorkflowNodeRenderer className="demo-free-node" node={props.node}>
+            <WorkflowNodeRenderer
+              className="demo-free-node"
+              node={props.node}
+              style={meta.wrapperStyle}
+            >
               {form?.render()}
             </WorkflowNodeRenderer>
           );
@@ -104,6 +111,18 @@ export const useEditorProps = () =>
        */
       onContentChange(ctx, event) {
         console.log('Auto Save: ', event, ctx.document.toJSON());
+      },
+      canDeleteLine: (ctx, line) => {
+        if (line.from?.flowNodeType === 'batch' && line.to?.flowNodeType === 'batch_function') {
+          return false;
+        }
+        return true;
+      },
+      isHideArrowLine(ctx, line) {
+        if (line.from?.flowNodeType === 'batch' && line.to?.flowNodeType === 'batch_function') {
+          return true;
+        }
+        return false;
       },
       // /**
       //  * Node engine enable, you can configure formMeta in the FlowNodeRegistry
@@ -171,6 +190,11 @@ export const useEditorProps = () =>
           alignLineWidth: 1,
           alignCrossWidth: 8,
         }),
+        /**
+         * This is used for the rendering of the loop node sub-canvas
+         * 这个用于 loop 节点子画布的渲染
+         */
+        createContainerNodePlugin({}),
       ],
     }),
     []

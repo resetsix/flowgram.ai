@@ -12,8 +12,8 @@ export const initialData: WorkflowJSON = {
       type: 'start',
       meta: {
         position: {
-          x: 150,
-          y: 100,
+          x: 86.5,
+          y: 57.5,
         },
       },
       data: {
@@ -26,11 +26,12 @@ export const initialData: WorkflowJSON = {
       type: 'condition',
       meta: {
         position: {
-          x: 550,
-          y: 100,
+          x: 359.5,
+          y: 43.25,
         },
       },
       data: {
+        portKeys: ['if', 'else'],
         title: 'Condition',
         content: 'Condition node content',
         ports: ['if', 'else'],
@@ -41,8 +42,8 @@ export const initialData: WorkflowJSON = {
       type: 'end',
       meta: {
         position: {
-          x: 1350,
-          y: 100,
+          x: 1393.5,
+          y: 52.5,
         },
       },
       data: {
@@ -51,54 +52,12 @@ export const initialData: WorkflowJSON = {
       },
     },
     {
-      id: '144150',
-      type: 'node1',
-      meta: {
-        position: {
-          x: 950,
-          y: 0,
-        },
-      },
-      data: {
-        title: 'New Node1',
-        content: 'xxxx',
-      },
-    },
-    {
-      id: '118937',
-      type: 'node2',
-      meta: {
-        position: {
-          x: 950,
-          y: 200,
-        },
-      },
-      data: {
-        title: 'New Node2',
-        content: 'xxxx',
-      },
-    },
-    {
-      id: 'chain0',
-      type: 'chain',
-      meta: {
-        position: {
-          x: 150,
-          y: 246,
-        },
-      },
-      data: {
-        title: 'Chain',
-        content: 'xxxx',
-      },
-    },
-    {
       id: '100260',
       type: 'tool',
       meta: {
         position: {
-          x: 55.8,
-          y: 410,
+          x: 86.5,
+          y: 399.75,
         },
       },
       data: {
@@ -111,8 +70,8 @@ export const initialData: WorkflowJSON = {
       type: 'tool',
       meta: {
         position: {
-          x: 280.5,
-          y: 410,
+          x: 359.5,
+          y: 399.75,
         },
       },
       data: {
@@ -125,8 +84,8 @@ export const initialData: WorkflowJSON = {
       type: 'twoway',
       meta: {
         position: {
-          x: 550,
-          y: 310,
+          x: 86.5,
+          y: 563.75,
         },
       },
       data: {
@@ -139,12 +98,161 @@ export const initialData: WorkflowJSON = {
       type: 'twoway',
       meta: {
         position: {
-          x: 866.0091156462586,
-          y: 422.4669387755102,
+          x: 359.5,
+          y: 563.75,
         },
       },
       data: {
         title: 'New Twoway',
+        content: 'xxxx',
+      },
+    },
+    {
+      id: 'BatchFunction_193210',
+      type: 'batch_function',
+      meta: {
+        position: {
+          x: 626,
+          y: 420.38853503184714,
+        },
+      },
+      data: {},
+      blocks: [
+        {
+          id: '118937',
+          type: 'node2',
+          meta: {
+            position: {
+              x: 250.5,
+              y: 0,
+            },
+          },
+          data: {
+            title: 'New Node2',
+            content: 'xxxx',
+          },
+        },
+        {
+          id: 'block_start_Y04Mt',
+          type: 'block_start',
+          meta: {
+            position: {
+              x: 32,
+              y: 0,
+            },
+          },
+          data: {},
+        },
+        {
+          id: 'block_end_7QesT',
+          type: 'block_end',
+          meta: {
+            position: {
+              x: 469,
+              y: 0,
+            },
+          },
+          data: {},
+        },
+      ],
+      edges: [
+        {
+          sourceNodeID: 'block_start_Y04Mt',
+          targetNodeID: '118937',
+        },
+        {
+          sourceNodeID: '118937',
+          targetNodeID: 'block_end_7QesT',
+        },
+      ],
+    },
+    {
+      id: 'loop_9OpIm',
+      type: 'loop',
+      meta: {
+        position: {
+          x: 626,
+          y: 0,
+        },
+      },
+      data: {
+        title: 'New Loop',
+        content: 'xxxx',
+      },
+      blocks: [
+        {
+          id: '144150',
+          type: 'node1',
+          meta: {
+            position: {
+              x: 250.5,
+              y: 1.4210854715202004e-14,
+            },
+          },
+          data: {
+            title: 'New Node1',
+            content: 'xxxx',
+          },
+        },
+        {
+          id: 'block_start_ptqXx',
+          type: 'block_start',
+          meta: {
+            position: {
+              x: 32,
+              y: 0,
+            },
+          },
+          data: {},
+        },
+        {
+          id: 'block_end_1zf_a',
+          type: 'block_end',
+          meta: {
+            position: {
+              x: 469,
+              y: 0,
+            },
+          },
+          data: {},
+        },
+      ],
+      edges: [
+        {
+          sourceNodeID: 'block_start_ptqXx',
+          targetNodeID: '144150',
+        },
+        {
+          sourceNodeID: '144150',
+          targetNodeID: 'block_end_1zf_a',
+        },
+      ],
+    },
+    {
+      id: '193210',
+      type: 'batch',
+      meta: {
+        position: {
+          x: 876.5,
+          y: 197.69426751592357,
+        },
+      },
+      data: {
+        title: 'New Batch',
+        content: 'xxxx',
+      },
+    },
+    {
+      id: 'chain0',
+      type: 'chain',
+      meta: {
+        position: {
+          x: 221.02229299363057,
+          y: 197.69426751592357,
+        },
+      },
+      data: {
+        title: 'Chain',
         content: 'xxxx',
       },
     },
@@ -156,20 +264,21 @@ export const initialData: WorkflowJSON = {
     },
     {
       sourceNodeID: 'node_0',
-      targetNodeID: '144150',
+      targetNodeID: 'loop_9OpIm',
       sourcePortID: 'if',
     },
     {
       sourceNodeID: 'node_0',
-      targetNodeID: '118937',
+      targetNodeID: '193210',
       sourcePortID: 'else',
     },
     {
-      sourceNodeID: '118937',
+      sourceNodeID: '193210',
       targetNodeID: 'end_0',
+      sourcePortID: 'batch-output',
     },
     {
-      sourceNodeID: '144150',
+      sourceNodeID: 'loop_9OpIm',
       targetNodeID: 'end_0',
     },
     {
@@ -193,6 +302,12 @@ export const initialData: WorkflowJSON = {
       targetNodeID: '122116',
       sourcePortID: 'output-right',
       targetPortID: 'input-left',
+    },
+    {
+      sourceNodeID: '193210',
+      targetNodeID: 'BatchFunction_193210',
+      sourcePortID: 'batch-output-to-function',
+      targetPortID: 'batch-function-input',
     },
   ],
 };

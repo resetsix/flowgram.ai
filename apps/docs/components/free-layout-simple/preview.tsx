@@ -5,7 +5,7 @@
 
 /* eslint-disable import/no-unresolved */
 
-import nodeRegistriesCode from '@flowgram.ai/demo-free-layout-simple/src/node-registries.tsx?raw';
+import nodesCode from '@flowgram.ai/demo-free-layout-simple/src/nodes/index.ts?raw';
 import dataCode from '@flowgram.ai/demo-free-layout-simple/src/initial-data.ts?raw';
 import useEditorPropsCode from '@flowgram.ai/demo-free-layout-simple/src/hooks/use-editor-props.tsx?raw';
 import editorCode from '@flowgram.ai/demo-free-layout-simple/src/editor.tsx?raw';
@@ -24,7 +24,7 @@ export const FreeLayoutSimplePreview = () => {
     },
     'use-editor-props.tsx': useEditorPropsCode,
     'initial-data.ts': dataCode,
-    'node-registries.ts': nodeRegistriesCode,
+    'nodes/index.ts': nodesCode,
     'node-add-panel.tsx': nodeAddPanelCode,
     'tools.tsx': toolsCode,
     'minimap.tsx': minimapCode,
