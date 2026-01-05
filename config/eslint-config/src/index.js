@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-require('ts-node').register({ transpileOnly: true, cwd: __dirname });
+const { FlatCompat } = require('@eslint/eslintrc');
 
-const { defineConfig } = require('./defineConfig');
+const { defineFlatConfig } = require('./defineFlatConfig.js');
 
-module.exports = { defineConfig };
+module.exports = { defineFlatConfig, FlatCompat };
